@@ -296,10 +296,17 @@ namespace DeltaKustoLib.CommandModel
         private static IEnumerable<string> SplitCommandScripts(string script)
         {
             var lines = script
-                .Split('\n')
+                .Split(
+                    new string[] { "\r\n", "\r", "\n" },
+                    StringSplitOptions.None
+                )
                 //  Remove comment lines
-                .Where(l => !l.Trim().StartsWith("//"));
+                //.Where(l => !l.Trim().StartsWith("//"));
+                //  Remove empty lines or lines with only whitespace
+                .Where(l => !string.IsNullOrWhiteSpace(l));
             var currentCommandLines = new List<string>();
+
+            Console.Write($"-#-#-#- Script:\n  {script}\n");
 
             foreach (var line in lines)
             {
@@ -307,6 +314,9 @@ namespace DeltaKustoLib.CommandModel
                 {
                     if (currentCommandLines.Any())
                     {
+                        var commandScript = string.Join('\n', currentCommandLines);
+                        Console.WriteLine($"#-#-#-# Command block: \n{commandScript}\n");
+                
                         yield return string.Join('\n', currentCommandLines);
                         currentCommandLines.Clear();
                     }
@@ -316,11 +326,19 @@ namespace DeltaKustoLib.CommandModel
                     currentCommandLines.Add(line);
                 }
             }
-
+            
             if (currentCommandLines.Any())
             {
+                var commandScript = string.Join('\n', currentCommandLines);
+                Console.WriteLine($"#-#-#-# Command block: \n{commandScript}\n");
                 yield return string.Join('\n', currentCommandLines);
             }
         }
     }
+
 }
+
+
+
+
+
