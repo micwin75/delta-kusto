@@ -320,6 +320,9 @@ namespace DeltaKustoLib.CommandModel
                 }
             }
 
+            Console.Write($"-#-#-#- Script:  {script}");
+            Console.Write($"#-#-#-# command:  {currentCommandLines}");
+            
             if (currentCommandLines.Any())
             {
                 yield return string.Join('\n', currentCommandLines);
@@ -328,4 +331,5 @@ namespace DeltaKustoLib.CommandModel
     }
 
 }
+
 
