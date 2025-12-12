@@ -304,7 +304,7 @@ namespace DeltaKustoLib.CommandModel
                 //.Where(l => !l.Trim().StartsWith("//"));
             var currentCommandLines = new List<string>();
 
-            Console.Write($"-#-#-#- Script:  {script}\n");
+            Console.Write($"-#-#-#- Script:\n  {script}\n");
 
             foreach (var line in lines)
             {
@@ -313,7 +313,7 @@ namespace DeltaKustoLib.CommandModel
                     if (currentCommandLines.Any())
                     {
                         var commandScript = string.Join('\n', currentCommandLines);
-                        Console.WriteLine($"#-#-#-# Command block: {commandScript}");
+                        Console.WriteLine($"#-#-#-# Command block: \n{commandScript}\n");
                 
                         yield return string.Join('\n', currentCommandLines);
                         currentCommandLines.Clear();
@@ -324,19 +324,18 @@ namespace DeltaKustoLib.CommandModel
                     currentCommandLines.Add(line);
                 }
             }
-
-            Console.Write($"#-#-#-# command:  {currentCommandLines}");
             
             if (currentCommandLines.Any())
             {
                 var commandScript = string.Join('\n', currentCommandLines);
-                Console.WriteLine($"#-#-#-# Command block: {commandScript}");
+                Console.WriteLine($"#-#-#-# Command block: \n{commandScript}\n");
                 yield return string.Join('\n', currentCommandLines);
             }
         }
     }
 
 }
+
 
 
 
