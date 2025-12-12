@@ -396,7 +396,6 @@ result['SimulatedUsage'] = df.apply(lambda x: GenMixtureUsage(x, size = size), a
             Assert.NotEqual(-1, bernIndex);
             Assert.NotEqual('\n', body[bernIndex-1]);
         }
-    }
 
 
         [Fact]
@@ -463,3 +462,4 @@ result['SimulatedUsage'] = df.apply(lambda x: GenMixtureUsage(x, size = size), a
         }
     }
 }
+
