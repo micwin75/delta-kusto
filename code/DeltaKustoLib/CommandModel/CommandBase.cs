@@ -299,9 +299,11 @@ namespace DeltaKustoLib.CommandModel
                 .Split(
                     new string[] { "\r\n", "\r", "\n" },
                     StringSplitOptions.None
-                );
+                )
                 //  Remove comment lines
                 //.Where(l => !l.Trim().StartsWith("//"));
+                //  Remove empty lines or lines with only whitespace
+                .Where(l => !string.IsNullOrWhiteSpace(l));
             var currentCommandLines = new List<string>();
 
             Console.Write($"-#-#-#- Script:\n  {script}\n");
@@ -335,6 +337,7 @@ namespace DeltaKustoLib.CommandModel
     }
 
 }
+
 
 
 
